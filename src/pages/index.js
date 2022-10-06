@@ -4,10 +4,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'Product', href: '/product' },
+  { name: 'Features', href: '/features' },
+  { name: 'Marketplace', href: '/marketplace' },
+  { name: 'Company', href: 'company' },
 ];
 
 export default function Home() {
@@ -50,7 +50,7 @@ export default function Home() {
                       {item.name}
                     </Link>
                   ))}
-                  <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                     Log in
                   </Link>
                 </div>

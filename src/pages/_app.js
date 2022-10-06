@@ -1,5 +1,5 @@
 import '@styles/tailwind.css';
-import MainLaout from 'layout/MainLayout';
+import MainLaout from '@layout/MainLayout';
 
 function MyApp({ Component, pageProps }) {
   return (
