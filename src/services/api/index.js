@@ -4,7 +4,7 @@ const VERSION = process.env.NEXT_PUBLIC_API_VERSION;
 const endPoints = {
   auth: {
     login: `${API}/api/${VERSION}/auth/login`,
-    profile: `${API}/api/${VERSION}/auch/profile`,
+    profile: `${API}/api/${VERSION}/auth/profile`,
   },
   products: {
     // https://api.escuelajs.co/api/v1/products/8

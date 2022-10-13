@@ -1,5 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
-// import cookie from 'js-cookie';
+import cookie from 'js-cookie';
 import axios from 'axios';
 import endPoints from 'services/api/';
 
@@ -16,7 +16,7 @@ export const useAuth = () => {
 };
 
 function useProviderAuth() {
-  const [user] = useState(null);
+  const [user, setUser] = useState(null);
   const options = {
     headers: {
       accept: '*/*',
@@ -25,8 +25,24 @@ function useProviderAuth() {
   };
 
   const signIn = async (email, password) => {
-    const { data: access_token } = await axios.post(endPoints.auth.login, { email, password }, options);
-    console.log(access_token);
+    try {
+      const { data: access_token } = await axios.post(endPoints.auth.login, { email, password }, options);
+      if (access_token) {
+        const theToken = access_token.access_token;
+        cookie.set('token', theToken, { expires: 5 });
+
+        axios.defaults.headers.Authorization = `Bearer ${theToken}`;
+        const { data: user } = await axios.get(endPoints.auth.profile);
+        console.log(user);
+        setUser(user);
+      }
+    } catch (error) {
+      if (error.response.status == 401) {
+        alert('the user or password are incorrect');
+      } else {
+        console.log(error.response);
+      }
+    }
   };
 
   return {
