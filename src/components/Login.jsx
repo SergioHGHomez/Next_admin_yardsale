@@ -1,12 +1,14 @@
 import { LockClosedIcon } from '@heroicons/react/24/solid';
 import { useRef } from 'react';
 import { useAuth } from '@hooks/useAuth';
+import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 export default function LoginPage() {
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const auth = useAuth();
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,7 +16,7 @@ export default function LoginPage() {
     const pass = passRef.current.value;
     auth.signIn(email, pass).then(() => {
       if (Cookies.get('token')) {
-        console.log('loged in');
+        router.push('/dashboard');
       }
     });
   };
