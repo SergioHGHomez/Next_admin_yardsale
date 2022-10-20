@@ -9,6 +9,8 @@ const endPoints = {
   products: {
     // https://api.escuelajs.co/api/v1/products/8
     getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+    getProducts: (limit, offset) => `${API}/api/${VERSION}/products?limit=${limit}
+    &offset=${offset}`,
   },
   categories: {
     // https://api.escuelajs.co/api/v1/categories?limit=5
