@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { ChevronDownIcon, LinkIcon, PencilIcon, PlusCircleIcon } from '@heroicons/react/20/solid';
 import { Menu, Transition } from '@headlessui/react';
-import { useState } from 'react';
 import Modal from '@common/Modal';
+import FormProduct from '@components/FormProduct';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function products() {
-
-    const [open, setOpen] = useState(false)
+export default function Products() {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div className="lg:flex lg:items-center lg:justify-between">
@@ -41,7 +40,9 @@ export default function products() {
           <span className="sm:ml-3">
             <button
               type="button"
-              onClick={() => {setOpen(true)}}
+              onClick={() => {
+                setOpen(true);
+              }}
               className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               <PlusCircleIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
@@ -66,16 +67,10 @@ export default function products() {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute right-0 z-10 mt-2 -mr-1 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Item>{({ active }) => <button className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>Edit</button>}</Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <button className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                      Edit
-                    </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                    <a href="/view/" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                       View
                     </a>
                   )}
@@ -121,7 +116,7 @@ export default function products() {
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <h1>hi this is modal</h1>
+        <FormProduct />
       </Modal>
     </>
   );

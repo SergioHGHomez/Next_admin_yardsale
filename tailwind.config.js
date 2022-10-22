@@ -8,4 +8,5 @@ module.exports = {
       ...colors,
     },
   },
+  Plugins: [require('@tailwindcss/forms')],
 };

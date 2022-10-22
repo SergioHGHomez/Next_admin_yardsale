@@ -11,6 +11,7 @@ const endPoints = {
     getProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
     getProducts: (limit, offset) => `${API}/api/${VERSION}/products?limit=${limit}
     &offset=${offset}`,
+    addProducts: `${API}/api/${VERSION}/products`,
   },
   categories: {
     // https://api.escuelajs.co/api/v1/categories?limit=5
