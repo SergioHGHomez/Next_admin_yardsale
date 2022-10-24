@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { addProduct } from 'services/api/products';
 
-export default function FormProduct() {
+export default function FormProduct({ setAlert, setOpen }) {
   const formRef = useRef(null);
   const handleSummit = (event) => {
     event.preventDefault();
@@ -13,9 +13,24 @@ export default function FormProduct() {
       categoryId: parseInt(formData.get('category')),
       images: ['https://api.lorem.space/image?w=640&h=480&r=8096'],
     };
-    addProduct(data).then((response) => {
-      console.log(response);
-    });
+    addProduct(data)
+      .then(() => {
+        setAlert({
+          active: true,
+          message: 'Product added succesfully',
+          type: 'success',
+          autoClose: false,
+        });
+        setOpen(false);
+      })
+      .catch((error) => {
+        setAlert({
+          active: true,
+          message: error.message,
+          type: 'error',
+          autoClose: false,
+        });
+      });
   };
 
   return (
