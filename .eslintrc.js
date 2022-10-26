@@ -13,6 +13,7 @@ module.exports = {
     "next/core-web-vitals",
   ],
   rules: {
-    semi: ["error", "always"],
+    'semi': ["error", "always"],
+    'react-hooks/rules-of-hooks': 0,
   },
 };

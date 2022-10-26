@@ -16,24 +16,23 @@ function classNames(...classes) {
 export default function Products() {
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  const {alert, setAlert, toggleAlert } = useAlert();
+  const { alert, setAlert, toggleAlert } = useAlert();
 
   useEffect(() => {
-    async function getProducts(){
+    async function getProducts() {
       const response = await axios.get(endPoints.products.allProducts);
       setProducts(response.data);
     }
     try {
       getProducts();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }, [alert]);
 
-
   return (
     <>
-    <Alert  alert={alert} handleClose={toggleAlert} />
+      <Alert alert={alert} handleClose={toggleAlert} />
       <div className="lg:flex lg:items-center lg:justify-between">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">List of products</h2>
@@ -130,7 +129,7 @@ export default function Products() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((item) => (
-                  <Product product={item} key={item.id} />
+                  <Product product={item} setAlert={setAlert} setOpen={setOpen} key={item.id} />
                 ))}
               </tbody>
             </table>
@@ -138,7 +137,7 @@ export default function Products() {
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <FormProduct setAlert={setAlert} setOpen={setOpen}/>
+        <FormProduct setAlert={setAlert} setOpen={setOpen} />
       </Modal>
     </>
   );
