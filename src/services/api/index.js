@@ -13,6 +13,9 @@ const endPoints = {
     &offset=${offset}`,
     allProducts: `${API}/api/${VERSION}/products`,
     addProducts: `${API}/api/${VERSION}/products`,
+    deleteProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+    updateProduct: (id) => `${API}/api/${VERSION}/products/${id}`,
+
   },
   categories: {
     // https://api.escuelajs.co/api/v1/categories?limit=5

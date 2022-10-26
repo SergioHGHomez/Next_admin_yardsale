@@ -1,7 +1,9 @@
 import { useRef } from 'react';
-import { addProduct } from 'services/api/products';
+import { useRouter } from 'next/router';
+import { addProduct, updateProduct } from 'services/api/products';
 
-export default function FormProduct({ setAlert, setOpen }) {
+export default function FormProduct({ setAlert, setOpen, product }) {
+  const router = useRouter();
   const formRef = useRef(null);
   const handleSummit = (event) => {
     event.preventDefault();
@@ -13,24 +15,30 @@ export default function FormProduct({ setAlert, setOpen }) {
       categoryId: parseInt(formData.get('category')),
       images: ['https://api.lorem.space/image?w=640&h=480&r=8096'],
     };
-    addProduct(data)
-      .then(() => {
-        setAlert({
-          active: true,
-          message: 'Product added succesfully',
-          type: 'success',
-          autoClose: false,
-        });
-        setOpen(false);
-      })
-      .catch((error) => {
-        setAlert({
-          active: true,
-          message: error.message,
-          type: 'error',
-          autoClose: false,
-        });
+    if (product) {
+      updateProduct(product.id, data).then(() => {
+        router.push('/dashboard/products/');
       });
+    } else {
+      addProduct(data)
+        .then(() => {
+          setAlert({
+            active: true,
+            message: 'Product was added succesfully',
+            type: 'success',
+            autoClose: false,
+          });
+          setOpen(false);
+        })
+        .catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          });
+        });
+    }
   };
 
   return (
@@ -42,19 +50,32 @@ export default function FormProduct({ setAlert, setOpen }) {
               <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                 Title
               </label>
-              <input type="text" name="title" id="title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+              <input
+                defaultValue={product?.title}
+                type="text"
+                name="title"
+                id="title"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
             </div>
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="price" className="block text-sm font-medium text-gray-700">
                 Price
               </label>
-              <input type="number" name="price" id="price" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+              <input
+                defaultValue={product?.price}
+                type="number"
+                name="price"
+                id="price"
+                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              />
             </div>
             <div className="col-span-6">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
                 Category
               </label>
               <select
+                value={product?.category?.id}
                 id="category"
                 name="category"
                 autoComplete="category-name"
@@ -73,6 +94,7 @@ export default function FormProduct({ setAlert, setOpen }) {
                 Description
               </label>
               <textarea
+                defaultValue={product?.description}
                 name="description"
                 id="description"
                 autoComplete="description"

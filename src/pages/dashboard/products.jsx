@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { ChevronDownIcon, LinkIcon, PencilIcon, PlusCircleIcon } from '@heroicons/react/20/solid';
+import { ChevronDownIcon, LinkIcon, PencilIcon, PlusCircleIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { Menu, Transition } from '@headlessui/react';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
@@ -8,6 +8,7 @@ import endPoints from 'services/api/index';
 import Product from '@components/Product';
 import useAlert from '@hooks/useAlert';
 import Alert from '@common/Alert';
+import { deleteProduct } from '@services/api/products';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -29,7 +30,6 @@ export default function Products() {
       console.log(error)
     }
   }, [alert]);
-
 
   return (
     <>
@@ -130,7 +130,7 @@ export default function Products() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((item) => (
-                  <Product product={item} key={item.id} />
+                  <Product product={item} setAlert={setAlert} setOpen={setOpen} key={item.id}/>
                 ))}
               </tbody>
             </table>
