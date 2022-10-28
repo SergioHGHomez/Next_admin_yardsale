@@ -12,16 +12,15 @@ export default function edit() {
     const { id } = router.query;
     if (!router.isReady) return;
 
-    async function getProduct(){
-        const response = await axios.get(endPoints.products.getProduct(id));
-        setProduct(response.data);
-        console.log(product);
+    async function getProduct() {
+      const response = await axios.get(endPoints.products.getProduct(id));
+      setProduct(response.data);
+      console.log(product);
     }
 
     getProduct().catch((error) => {
-        console.log("product not found");
+      console.log(error.message);
     });
-    
   }, [router?.isReady]);
 
   return <FormProduct product={product} />;
