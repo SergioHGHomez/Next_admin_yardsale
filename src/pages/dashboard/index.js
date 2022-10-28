@@ -1,32 +1,31 @@
 import React from 'react';
 import useFetch from '@hooks/useFetch';
-import endPoints from 'services/api/';
+import endPoints from '@services/api';
 import Product from '@components/Product';
-import { Chart } from '@common/Chart';
+// import { Chart } from '@common/Chart';
 
 export default function Dashboard() {
-  const products = useFetch(endPoints.products.getProducts(5, 1));
-  console.log(products);
+  const products = useFetch(endPoints.products.allProducts);
 
-  const categoryNames = products?.map((product) => product.category);
-  const categoryCount = categoryNames?.map((category) => category.name);
+  // const categoryNames = products?.map((product) => product.category);
+  // const categoryCount = categoryNames?.map((category) => category.name);
 
-  const countOcurrences = (arr) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {});
+  // const countOcurrences = (arr) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {});
 
-  const data = {
-    datasets: [
-      {
-        label: 'categories',
-        data: countOcurrences(categoryCount),
-        borderWidth: 2,
-        backgroundColor: ['#ffbb11', '#c0c0c0', '#50af95', '#f3ba2f', '#2a71d0'],
-      },
-    ],
-  };
+  // const data = {
+  //   datasets: [
+  //     {
+  //       label: 'categories',
+  //       data: countOcurrences(categoryCount),
+  //       borderWidth: 2,
+  //       backgroundColor: ['#ffbb11', '#c0c0c0', '#50af95', '#f3ba2f', '#2a71d0'],
+  //     },
+  //   ],
+  // };
 
   return (
     <>
-      <Chart className="mb-8 mt-2" charData={data} />
+      {/* <Chart className="mb-8 mt-2" charData={data} /> */}
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

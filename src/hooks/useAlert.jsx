@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useAlert = (options) => {
   const defaultOptions = {
     active: false,
-    message: "",
-    type: "",
+    message: '',
+    type: '',
     autoclose: true,
   };
 
@@ -17,9 +17,8 @@ const useAlert = (options) => {
   return {
     alert,
     setAlert,
-    toggleAlert
+    toggleAlert,
   };
-
 };
 
 export default useAlert;
